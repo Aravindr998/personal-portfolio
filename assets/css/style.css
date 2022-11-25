@@ -1193,3 +1193,28 @@ section .container {
 .credits a:hover {
   color: #fff;
 }
+.form-group p{
+  color: red;
+  font-size: 0.8rem;
+  visibility: hidden;
+}
+.form-group p{
+  margin-bottom: 0 !important;
+}
+.form-group i{
+  position: absolute;
+  right: 1.5rem;
+  top: 0.5rem;
+  visibility: hidden;
+}
+.success i.bi-check-circle-fill{
+  visibility: visible;
+  color: green;
+}
+.error i.bi-x-circle-fill{
+  visibility: visible;
+  color: red;
+}
+.error p{
+  visibility: visible;
+}

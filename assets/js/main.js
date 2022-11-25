@@ -154,99 +154,64 @@
     })
   }
 
-  /**
-   * Testimonials slider
-   */
-  new Swiper('.testimonials-slider', {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    slidesPerView: 'auto',
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20
-      },
-
-      1200: {
-        slidesPerView: 3,
-        spaceBetween: 20
-      }
-    }
-  });
-
-  /**
-   * Porfolio isotope and filter
-   */
-  window.addEventListener('load', () => {
-    let portfolioContainer = select('.portfolio-container');
-    if (portfolioContainer) {
-      let portfolioIsotope = new Isotope(portfolioContainer, {
-        itemSelector: '.portfolio-item',
-        layoutMode: 'fitRows'
-      });
-
-      let portfolioFilters = select('#portfolio-flters li', true);
-
-      on('click', '#portfolio-flters li', function(e) {
-        e.preventDefault();
-        portfolioFilters.forEach(function(el) {
-          el.classList.remove('filter-active');
-        });
-        this.classList.add('filter-active');
-
-        portfolioIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-      }, true);
-    }
-
-  });
-
-  /**
-   * Initiate portfolio lightbox 
-   */
-  const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
-  });
-
-  /**
-   * Initiate portfolio details lightbox 
-   */
-  const portfolioDetailsLightbox = GLightbox({
-    selector: '.portfolio-details-lightbox',
-    width: '90%',
-    height: '90vh'
-  });
-
-  /**
-   * Portfolio details slider
-   */
-  new Swiper('.portfolio-details-slider', {
-    speed: 400,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    }
-  });
-
-  /**
-   * Initiate Pure Counter 
-   */
-  new PureCounter();
-
 })()
+const form = document.querySelector('#enquiry-form');
+const username = document.querySelector('#name');
+const emailid = document.querySelector('#email');
+const subject = document.querySelector('#subject');
+const message = document.querySelector('#message');
+form.addEventListener('submit', (event)=>{
+  event.preventDefault();
+
+  validateForm();
+});
+function validateForm(){
+  //name
+  if(username.value.trim()==''){
+    setError(username, 'Name cannot be empty');
+  }else if(username.value.trim().length < 2){
+    setError(username, 'Name should be atleast two characters');
+  }else{
+    setSuccess(username);
+  }
+  //email
+  if(emailid.value.trim()==''){
+    setError(emailid, 'Email cannot be empty');
+  }else if(isEmailValid(emailid.value)){
+    setSuccess(emailid);
+  }else{
+    setError(emailid, 'Please provide a valid email')
+  }
+  //subject
+  if(subject.value.trim()==''){
+    setError(subject, 'Subject cannot be empty');
+  }else{
+    setSuccess(subject);
+  }
+  //message
+  if(message.value.trim()==''){
+    setError(message, 'Message cannot be empty');
+  }else{
+    setSuccess(message);
+  }
+}
+function setError(element, errorMessage){
+  const parent = element.parentElement;
+  if(parent.classList.contains('success')){
+    parent.classList.remove('success');
+  }
+  parent.classList.add('error');
+  const paragraph = parent.querySelector('p');
+  paragraph.textContent = errorMessage;
+}
+function setSuccess(element){
+  const parent = element.parentElement;
+  if(parent.classList.contains('error')){
+    parent.classList.remove('error')
+  }
+  parent.classList.add('success');
+}
+function isEmailValid(email){
+  const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return reg.test(email);
+}
