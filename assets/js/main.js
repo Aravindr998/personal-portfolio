@@ -161,10 +161,46 @@ const emailid = document.querySelector('#email');
 const subject = document.querySelector('#subject');
 const message = document.querySelector('#message');
 form.addEventListener('submit', (event)=>{
-  event.preventDefault();
-
   validateForm();
+  if(isFormValid()==true){
+    form.submit();
+  }else{
+    event.preventDefault();
+  }
 });
+function checkName(){
+  if(username.value.trim()==''){
+    setError(username, 'Name cannot be empty');
+  }else if(username.value.trim().length < 2){
+    setError(username, 'Name should be atleast two characters');
+  }else{
+    setSuccess(username);
+  }
+}
+function checkEmail(){
+  if(emailid.value.trim()==''){
+    setError(emailid, 'Email cannot be empty');
+  }else if(isEmailValid(emailid.value)){
+    setSuccess(emailid);
+  }else{
+    setError(emailid, 'Please provide a valid email')
+  }
+}
+function checkSubject(){
+  if(subject.value.trim()==''){
+    setError(subject, 'Subject cannot be empty');
+  }else{
+    setSuccess(subject);
+  }
+}
+function checkMessage(){
+  if(message.value.trim()==''){
+    setError(message, 'Message cannot be empty');
+  }else{
+    setSuccess(message);
+  }
+}
+
 function validateForm(){
   //name
   if(username.value.trim()==''){
@@ -214,4 +250,15 @@ function setSuccess(element){
 function isEmailValid(email){
   const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return reg.test(email);
+}
+function isFormValid(){
+  const inputContainers = form.querySelectorAll('.form-group');
+  let result = true;
+  inputContainers.forEach((container)=>{
+    if(container.classList.contains('error')){
+      
+      result = false;
+    }
+  });
+  return result;
 }

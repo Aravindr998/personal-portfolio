@@ -425,26 +425,26 @@
       <form action="forms/contact.php" method="post" role="form" class="php-email-form mt-4" id="enquiry-form">
         <div class="row">
           <div class="col-md-6 form-group position-relative">
-            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" >
+            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" onfocusout="checkName()">
               <p>Error message</p>
               <i class="bi bi-check-circle-fill"></i>
               <i class="bi bi-x-circle-fill"></i>
           </div>
           <div class="col-md-6 form-group mt-3 mt-md-0 position-relative">
-            <input type="text" class="form-control" name="email" id="email" placeholder="Your Email">
+            <input type="text" class="form-control" name="email" id="email" placeholder="Your Email" onfocusout="checkEmail()">
               <p>This field cannot be empty</p>
               <i class="bi bi-check-circle-fill"></i>
               <i class="bi bi-x-circle-fill"></i>
           </div>
         </div>
         <div class="form-group mt-3 position-relative">
-          <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" novalidate>
+          <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" novalidate onfocusout="checkSubject()">
             <p>This field cannot be empty</p>
             <i class="bi bi-check-circle-fill"></i>
             <i class="bi bi-x-circle-fill"></i>
         </div>
         <div class="form-group mt-3 position-relative">
-          <textarea class="form-control" name="message" rows="5" placeholder="Message" id="message" ></textarea>
+          <textarea class="form-control" name="message" rows="5" placeholder="Message" id="message" onfocusout="checkMessage()"></textarea>
             <p>This field cannot be empty</p>
             <i class="bi bi-check-circle-fill"></i>
             <i class="bi bi-x-circle-fill"></i>
