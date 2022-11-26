@@ -277,7 +277,9 @@ function isFormValid(){
 //       .catch(error => console.error('Error!', error.message))
 //   })
 $("#enquiry-form").submit((e)=>{
-  e.preventDefault()
+  validateForm();
+  if(isFormValid()==true){
+    e.preventDefault()
   $.ajax({
       url:"https://script.google.com/macros/s/AKfycbzaaJOowYvlp-1a1zp95zs9EQ3SQM3ZId4_vEpVtURgRL8ck8bTjYZHfprV74vvllG0WA/exec",
       data:$("#enquiry-form").serialize(),
@@ -292,4 +294,8 @@ $("#enquiry-form").submit((e)=>{
 
       }
   })
+  }else{
+    e.preventDefault();
+  }
+  
 })
