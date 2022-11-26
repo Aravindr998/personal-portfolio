@@ -160,10 +160,14 @@ const username = document.querySelector('#name');
 const emailid = document.querySelector('#email');
 const subject = document.querySelector('#subject');
 const message = document.querySelector('#message');
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxgEGgudIese7gN4sp6giqfxBMg7t0Wihz1AF7O0mjSAaKlIF6c9dEC9sheGPyAOPqUmQ/exec'
 form.addEventListener('submit', (event)=>{
   validateForm();
   if(isFormValid()==true){
-    form.submit();
+    event.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => console.log('Success!', response))
+      .catch(error => console.error('Error!', error.message))
   }else{
     event.preventDefault();
   }
@@ -262,3 +266,30 @@ function isFormValid(){
   });
   return result;
 }
+//Submission
+// const scriptURL = 'https://script.google.com/macros/s/AKfycbxgEGgudIese7gN4sp6giqfxBMg7t0Wihz1AF7O0mjSAaKlIF6c9dEC9sheGPyAOPqUmQ/exec'
+//   const formFinal = document.forms['google-sheet']
+
+//   formFinal.addEventListener('submit', e => {
+//     e.preventDefault()
+//     fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+//       .then(response => console.log('Success!', response))
+//       .catch(error => console.error('Error!', error.message))
+//   })
+$("#enquiry-form").submit((e)=>{
+  e.preventDefault()
+  $.ajax({
+      url:"https://script.google.com/macros/s/AKfycbzaaJOowYvlp-1a1zp95zs9EQ3SQM3ZId4_vEpVtURgRL8ck8bTjYZHfprV74vvllG0WA/exec",
+      data:$("#enquiry-form").serialize(),
+      method:"post",
+      success:function (response){
+          alert("Form submitted successfully")
+          window.location.reload()
+          //window.location.href="https://google.com"
+      },
+      error:function (err){
+          alert("Something Error")
+
+      }
+  })
+})
